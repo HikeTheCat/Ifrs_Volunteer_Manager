@@ -1,4 +1,4 @@
-const EventModel = require('../mdoels/EventModel');
+const EventModel = require('../models/EventModel');
 
 class EventService {
     async listAll() {
