@@ -1,9 +1,22 @@
-const EventModel = require('../models/EventModel');
+const EventRepository = require('../repositories/EventRepository');
+const Event = require('../entities/Event');
 
 class EventService {
-    async listAll() {
-        return await EventModel.listAll();
+    constructor() {
+        this.EventRepository = EventRepository;
     }
-};
 
-module.exports = new EventService();
+    async listAll() {
+        const events = await this.EventRepository.listAll();
+        return events;
+    }
+
+    async create(eventDate) {
+        const newEvent = (eventDate);
+        const events = await this.EventRepository.create(newEvent);
+        return events;
+    }
+}
+
+    module.exports = new EventService();
+
