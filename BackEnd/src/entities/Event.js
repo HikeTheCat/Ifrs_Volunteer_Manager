@@ -22,7 +22,7 @@ class Event {
     }
 
     set adress (newAdress){
-        if (!newAdress || newAdress.trim().toLowerCase().length <5) {
+        if (!newAdress || newAdress.trim().length <5) {
             throw new Error('Endereço do evento deve ter pelo menos 5 caracteres.');
         }
         this._adress = newAdress;
@@ -32,7 +32,7 @@ class Event {
         return this._name;
     }
     get fomattedDate(){
-        return this.date.toLocaleDateString('pt-BR');
+        return this.date ? new Date(this.date).toLocaleDateString('pt-BR'): null;
     }
 
     set name(newName) {

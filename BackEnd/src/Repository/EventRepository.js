@@ -10,15 +10,15 @@ class EventRepository {
         const sql = 'SELECT * FROM events';
         const [rows] = await this.db.execute(sql);
 
-        const events = rows.map(row => new Event(row));
+        const events = rows.map(row => new Event(row.id , row.name, row.date, row.description, row.location));
         return events;
     }
 
     async create(eventDate) {
-        const sql = 'INSERT INTO events (name, date, description, adress) VALUES (?,?,?,?)';
-        const parameters = [eventDate.name, eventDate.date, eventDate.description, eventDate.adress];
+        const sql = 'INSERT INTO events (name, date, description, location) VALUES (?,?,?,?)';
+        const parameters = [eventDate.name, eventDate.date, eventDate.description, eventDate.location];
         const [result] = await this.db.execute(sql, parameters);
-        return { id: result.insertId, ...eventDate };
+        return { id: result.insertId, event: new Event(result.insertId, eventDate.name, eventDate.date, eventDate.description, eventDate.location) };
     }
 }
 

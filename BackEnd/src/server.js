@@ -1,20 +1,20 @@
-const dotenv = require('dotenv')
-const express = require('express')
-const cors = require('cors')
-const jsonwebtoken = require('jsonwebtoken')
+const dotenv = require('dotenv');
+const express = require('express');
+const cors = require('cors');
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+const eventRoutes = require('./routes/eventRoutes');
 
-const PORT = process.env.PORT || 3000
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-try {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-  })
-} catch (error) {
-  console.error('Error starting server:', error)
-}
+app.use('/events', eventRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+})
+
+module.exports = app;
